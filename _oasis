@@ -1,0 +1,36 @@
+OASISFormat: 0.3
+Name:        Dom_type
+Version:     0.1
+Synopsis:    Html representation of ocaml type
+Authors:     Marc Simon <marc.simon42@gmail.com>
+License:     GPL-3
+Plugins:     META (0.3), StdFiles (0.3), DevFiles (0.3)
+
+Library "dom_type.client"
+  Path:       client/src
+  BuildTools: ocamlbuild
+  Modules:    Dom_type
+  BuildDepends: eliom.client,eliom.syntax.client
+
+Library "dom_type.client.syntax"
+  Path:       client/syntax
+  BuildTools: ocamlbuild
+  Modules:    Pa_dom
+  BuildDepends : camlp4.quotations.r,camlp4.metagenerator,camlp4.extend,deriving-ocsigen,js_of_ocaml.deriving.syntax
+  CompiledObject:     byte
+  XMETAType:          syntax
+  XMETARequires:      camlp4
+
+Library "dom_type.server"
+  Path:       server/src
+  BuildTools: ocamlbuild
+  Modules:    Dom_type_dummy
+
+Library "dom_type.server.syntax"
+  Path:       server/syntax
+  BuildTools: ocamlbuild
+  Modules:    Pa_dom_dummy
+  BuildDepends : camlp4.quotations.r,camlp4.metagenerator,camlp4.extend,deriving-ocsigen,js_of_ocaml.deriving.syntax
+  CompiledObject:     byte
+  XMETAType:          syntax
+  XMETARequires:      camlp4

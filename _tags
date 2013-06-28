@@ -1,0 +1,37 @@
+# OASIS_START
+# DO NOT EDIT (digest: a900344f912d5d2257f18e94d26971b4)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library dom_type.client
+"client/src/dom_type.client.cmxs": use_dom_type.client
+<client/src/*.ml{,i}>: pkg_eliom.client
+<client/src/*.ml{,i}>: pkg_eliom.syntax.client
+# Library dom_type.client.syntax
+"client/syntax/dom_type.client.syntax.cmxs": use_dom_type.client.syntax
+<client/syntax/*.ml{,i}>: pkg_camlp4.quotations.r
+<client/syntax/*.ml{,i}>: pkg_camlp4.metagenerator
+<client/syntax/*.ml{,i}>: pkg_camlp4.extend
+<client/syntax/*.ml{,i}>: pkg_deriving-ocsigen
+<client/syntax/*.ml{,i}>: pkg_js_of_ocaml.deriving.syntax
+# Library dom_type.server
+"server/src/dom_type.server.cmxs": use_dom_type.server
+# Library dom_type.server.syntax
+"server/syntax/dom_type.server.syntax.cmxs": use_dom_type.server.syntax
+<server/syntax/*.ml{,i}>: pkg_camlp4.quotations.r
+<server/syntax/*.ml{,i}>: pkg_camlp4.metagenerator
+<server/syntax/*.ml{,i}>: pkg_camlp4.extend
+<server/syntax/*.ml{,i}>: pkg_deriving-ocsigen
+<server/syntax/*.ml{,i}>: pkg_js_of_ocaml.deriving.syntax
+# OASIS_STOP
+<client/src/*.ml{,i}> or <client/syntax/*.ml{,i}> or <server/syntax/*.ml{,i}> : syntax_camlp4o

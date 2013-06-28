@@ -1,0 +1,39 @@
+# OASIS_START
+# DO NOT EDIT (digest: 922889a809846354a1d9e3a3143ed035)
+package "server" (
+ version = "0.1"
+ description = "Html representation of ocaml type"
+ archive(byte) = "dom_type.server.cma"
+ archive(byte, plugin) = "dom_type.server.cma"
+ archive(native) = "dom_type.server.cmxa"
+ archive(native, plugin) = "dom_type.server.cmxs"
+ exists_if = "dom_type.server.cma"
+ package "syntax" (
+  version = "0.1"
+  description = "Html representation of ocaml type"
+  requires = "camlp4"
+  archive(syntax, preprocessor) = "dom_type.server.syntax.cma"
+  archive(syntax, toploop) = "dom_type.server.syntax.cma"
+  exists_if = "dom_type.server.syntax.cma"
+ )
+)
+package "client" (
+ version = "0.1"
+ description = "Html representation of ocaml type"
+ requires = "eliom.client eliom.syntax.client"
+ archive(byte) = "dom_type.client.cma"
+ archive(byte, plugin) = "dom_type.client.cma"
+ archive(native) = "dom_type.client.cmxa"
+ archive(native, plugin) = "dom_type.client.cmxs"
+ exists_if = "dom_type.client.cma"
+ package "syntax" (
+  version = "0.1"
+  description = "Html representation of ocaml type"
+  requires = "camlp4"
+  archive(syntax, preprocessor) = "dom_type.client.syntax.cma"
+  archive(syntax, toploop) = "dom_type.client.syntax.cma"
+  exists_if = "dom_type.client.syntax.cma"
+ )
+)
+# OASIS_STOP
+
