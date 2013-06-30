@@ -40,23 +40,23 @@ module Builder(Loc : Defs.Loc) = struct
 
     method record ?eq ctxt tname params constraints (fields : Pa_deriving_common.Type.field list) =
       [
-        <:str_item< assert False >>
+        <:str_item< value f _ =  assert False >>
       ]
 
     method tuple ctxt tys =
       [
-        <:str_item< assert False >>
+        <:str_item< value f _ =  assert False >>
       ]
 
     method sum ?eq ctxt tname params constraints summands =
       [
-        <:str_item< assert False >>
+        <:str_item< value f _ =  assert False >>
       ]
 
 
     method variant ctxt tname params constraints (_, tags) =
       [
-        <:str_item< assert False >>
+        <:str_item< value f _ =  assert False >>
       ]
 
 
