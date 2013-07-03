@@ -207,12 +207,12 @@ module Builder(Loc : Defs.Loc) = struct
            if is_sum then
              <:match_case@here<
                $uid:name$ ->
-                 Dom_manip.select_index sel $`int:i$
+                 Dom_type.select_index sel $`int:i$
              >>
            else
            <:match_case@here<
              `$uid:name$ ->
-                Dom_manip.select_index sel $`int:i$
+                Dom_type.select_index sel $`int:i$
            >>
          in
 
@@ -260,12 +260,12 @@ module Builder(Loc : Defs.Loc) = struct
            if is_sum then
              <:match_case@here<
                $uid:name$ _ ->
-                 Dom_manip.select_index sel $`int:i$
+                 Dom_type.select_index sel $`int:i$
               >>
            else
              <:match_case@here<
                `$uid:name$ _ ->
-                Dom_manip.select_index sel $`int:i$
+                Dom_type.select_index sel $`int:i$
               >>
          in
 
@@ -317,7 +317,7 @@ module Builder(Loc : Defs.Loc) = struct
              let rec sel = lazy (Raw.select ~a:[ a_onchange (fun _ -> do { on_change (); True})  ] $Helpers.expr_list (List.rev options)$)
              and on_change () =
                  let sel = Lazy.force sel in
-                 let v = Dom_manip.get_value_select sel in
+                 let v = Dom_type.get_value_select sel in
 
                  try
                    let l =
@@ -430,7 +430,7 @@ method save_of_sum : 'c. Generator.context -> ('e -> 'f -> 'c -> 'g) -> 'c list 
       match d.Dom_type.value_ with
         [
          `Select (sel, nodes) ->
-            match Dom_manip.get_value_select sel with [
+            match Dom_type.get_value_select sel with [
               $list:mcs$
             ]
             | _ -> raise Dom_type.Wrong_dom_value
