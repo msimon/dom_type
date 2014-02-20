@@ -331,7 +331,7 @@
                           | `List l -> `List (List.filter (fun d2 -> d <> d2) l)
                           | _ -> assert false
                         end;
-                      false
+                      raise Eliom_lib.False
                     ); a_class [ "btn"; "btn-warning"]
                   ] ~button_type:`Button [ pcdata "delete" ]
       in
@@ -339,7 +339,7 @@
       Manip.appendChild nodes single_node ;
     in
 
-    let add_btn = button ~a:[ a_onclick (fun _ -> add_single_node (); false); a_class [ "btn"; "btn-info" ]] ~button_type:`Button [ pcdata "add" ] in
+    let add_btn = button ~a:[ a_onclick (fun _ -> add_single_node (); raise Eliom_lib.False); a_class [ "btn"; "btn-info" ]] ~button_type:`Button [ pcdata "add" ] in
     Manip.appendChild node add_btn ;
 
     v,add_single_node
