@@ -9,42 +9,42 @@
   exception Empty_value
 
   open Eliom_content
-  open Html5
+  open Html
   open D
 
   type 'a dom_value = [
-    | `Input of Html5_types.input Eliom_content.Html5.D.elt
-    | `Textarea of Html5_types.textarea Eliom_content.Html5.D.elt
-    | `Select of Html5_types.select Eliom_content.Html5.D.elt * ((string * ('a dom_ext Lazy.t) list) list)
+    | `Input of Html_types.input Eliom_content.Html.D.elt
+    | `Textarea of Html_types.textarea Eliom_content.Html.D.elt
+    | `Select of Html_types.select Eliom_content.Html.D.elt * ((string * ('a dom_ext Lazy.t) list) list)
     | `List of 'a dom_ext list
     | `Record of (string * 'a dom_ext) list
   ]
 
   and ('a) dom_ext = {
-    node : 'a Eliom_content.Html5.D.elt ;
+    node : 'a Eliom_content.Html.D.elt ;
     mutable value_ : 'a dom_value ;
-    error : Html5_types.p Eliom_content.Html5.D.elt option;
+    error : Html_types.p Eliom_content.Html.D.elt option;
   }
 
   let node d = d.node
   let value d = d.value_
 
   (** UTILES **)
-  let get_value dom = Js.to_string ((Html5.To_dom.of_input dom)##value)
-  let set_value e s = (Html5.To_dom.of_input e)##value <- Js.string s
-  let empty_value e = (Html5.To_dom.of_input e)##value <- Js.string ""
+  let get_value dom = Js.to_string ((Html.To_dom.of_input dom)##value)
+  let set_value e s = (Html.To_dom.of_input e)##value <- Js.string s
+  let empty_value e = (Html.To_dom.of_input e)##value <- Js.string ""
 
   let get_opt_value dom =
     let s = get_value dom in
     if s = "" then None
     else Some s
 
-  let get_value_select e = Js.to_string ((Html5.To_dom.of_select e)##value)
-  let set_value_select e s = (Html5.To_dom.of_select e)##value <- Js.string s
+  let get_value_select e = Js.to_string ((Html.To_dom.of_select e)##value)
+  let set_value_select e s = (Html.To_dom.of_select e)##value <- Js.string s
   let select_index e i = (To_dom.of_select e)##selectedIndex <- i
 
-  let get_value_textarea dom = Js.to_string ((Html5.To_dom.of_textarea dom)##value)
-  let set_value_textarea e s = (Html5.To_dom.of_textarea e)##value <- Js.string s
+  let get_value_textarea dom = Js.to_string ((Html.To_dom.of_textarea dom)##value)
+  let set_value_textarea e s = (Html.To_dom.of_textarea e)##value <- Js.string s
 
   let get_opt_value_textarea dom =
     let s = get_value_textarea dom in
@@ -55,10 +55,10 @@
 
   module type Dom_type = sig
     type a
-    val to_default : ?v:a -> unit -> [ Html5_types.div_content_fun ] dom_ext
-    val to_dom : a -> [ Html5_types.div_content_fun ] dom_ext
+    val to_default : ?v:a -> unit -> [ Html_types.div_content_fun ] dom_ext
+    val to_dom : a -> [ Html_types.div_content_fun ] dom_ext
 
-    val save : [ Html5_types.div_content_fun ] dom_ext -> a
+    val save : [ Html_types.div_content_fun ] dom_ext -> a
   end
 
   module Default(D : Dom_type) : Dom_type with type a = D.a = struct
@@ -73,7 +73,7 @@
         | Some error_dom ->
           let error = Printf.sprintf "Expected value of type %s but '%s' was given" t (match v with | Some v -> v | None -> "") in
           Manip.SetCss.display error_dom "block" ;
-          Manip.replaceAllChild error_dom [ pcdata error ]
+          Manip.replaceChildren error_dom [ pcdata error ]
         | None -> ()
       end;
       raise exn
@@ -91,7 +91,7 @@
         in
 
         let error = p ~a:[ a_class ["error"]; a_style "display:none"] [ ] in
-        let d = input ~a:[ v ] ~input_type:`Text () in
+        let d = input ~a:[ v; a_input_type `Text ] () in
         {
           node = div ~a:[ a_class ["dom_ext_int"] ] [ error; d ] ;
           value_ = `Input d;
@@ -128,7 +128,7 @@
         in
 
         let error = p ~a:[ a_class ["error"]; a_style "display:none"] [ ] in
-        let d = input ~a:[ v ] ~input_type:`Text () in
+        let d = input ~a:[ v; a_input_type `Text] () in
         {
           node = div ~a:[ a_class ["dom_ext_int"; "dom_ext_int32"] ] [ error; d ] ;
           value_ = `Input d;
@@ -164,7 +164,7 @@
         in
 
         let error = p ~a:[ a_class ["error"]; a_style "display:none"] [ ] in
-        let d = input ~a:[ v ] ~input_type:`Text () in
+        let d = input ~a:[ v; a_input_type `Text ] () in
         {
           node = div ~a:[ a_class ["dom_ext_int"; "dom_ext_int64"] ] [ error; d ] ;
           value_ = `Input d;
@@ -242,7 +242,7 @@
         in
 
         let error = p ~a:[ a_class ["error"]; a_style "display:none"] [ ] in
-        let d = input ~a:[ v ] ~input_type:`Text () in
+        let d = input ~a:[ v; a_input_type `Text ] () in
         {
           node = div ~a:[ a_class ["dom_ext_float"] ] [ error; d ] ;
           value_ = `Input d;
@@ -331,15 +331,15 @@
                           | `List l -> `List (List.filter (fun d2 -> d <> d2) l)
                           | _ -> assert false
                         end;
-                      raise Eliom_lib.False
-                    ); a_class [ "btn"; "btn-warning"]
-                  ] ~button_type:`Button [ pcdata "delete" ]
+                    ); a_class [ "btn"; "btn-warning"];
+                    a_button_type `Button
+                  ] [ pcdata "delete" ]
       in
       Manip.appendChild single_node btn ;
       Manip.appendChild nodes single_node ;
     in
 
-    let add_btn = button ~a:[ a_onclick (fun _ -> add_single_node (); raise Eliom_lib.False); a_class [ "btn"; "btn-info" ]] ~button_type:`Button [ pcdata "add" ] in
+    let add_btn = button ~a:[ a_onclick (fun _ -> add_single_node ()); a_class [ "btn"; "btn-info" ]; a_button_type `Button ] [ pcdata "add" ] in
     Manip.appendChild node add_btn ;
 
     v,add_single_node

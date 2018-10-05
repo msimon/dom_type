@@ -1,10 +1,16 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 7617631d5fd4b9d87506a75242600136) *)
-This is the README file for the Dom_type distribution.
+(* DO NOT EDIT (digest: 710f13eaa19a41e8eca21a1aa1119edc) *)
 
-Html representation of ocaml type
+Dom_type - Html representation of ocaml type
+============================================
 
-See the files INSTALL.txt for building and installation instructions. 
+See the file [INSTALL.txt](INSTALL.txt) for building and installation
+instructions.
 
+Copyright and license
+---------------------
+
+Dom_type is distributed under the terms of the GNU General Public License
+version 3.
 
 (* OASIS_STOP *)

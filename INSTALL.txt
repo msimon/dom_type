@@ -1,20 +1,22 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 27206119c3042e71ca3d55235eff067b) *)
+(* DO NOT EDIT (digest: 4c23b8138eed38ab0717b71e828ee367) *)
+
 This is the INSTALL file for the Dom_type distribution.
 
 This package uses OASIS to generate its build system. See section OASIS for
-full information. 
+full information.
 
 Dependencies
 ============
 
 In order to compile this package, you will need:
+
 * ocaml
 * findlib
 * eliom for library dom_type.client
-* deriving-ocsigen for library dom_type.client.syntax,
-  library dom_type.server.syntax
-* js_of_ocaml for library dom_type.client.syntax,
+* js_of_ocaml for library dom_type.client
+* deriving for library dom_type.client.syntax, library dom_type.server.syntax
+* js_of_ocaml-camlp4 for library dom_type.client.syntax,
   library dom_type.server.syntax
 
 Installing
@@ -28,7 +30,7 @@ Installing
 Uninstalling
 ============
 
-1. Go to the root of the package 
+1. Go to the root of the package
 2. Run 'ocaml setup.ml -uninstall'
 
 OASIS

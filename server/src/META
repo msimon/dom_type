@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 922889a809846354a1d9e3a3143ed035)
+# DO NOT EDIT (digest: 120c6ff35b460cbca8f3d1771d625fbe)
 package "server" (
  version = "0.1"
  description = "Html representation of ocaml type"
@@ -20,7 +20,7 @@ package "server" (
 package "client" (
  version = "0.1"
  description = "Html representation of ocaml type"
- requires = "eliom.client eliom.syntax.client"
+ requires = "eliom.client eliom.syntax.client js_of_ocaml.syntax"
  archive(byte) = "dom_type.client.cma"
  archive(byte, plugin) = "dom_type.client.cma"
  archive(native) = "dom_type.client.cmxa"

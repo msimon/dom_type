@@ -1,5 +1,8 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 4d3333cc4c99f5e7b651cdeffd48bd18) *)
-Authors of Dom_type
-Marc Simon <marc.simon42@gmail.com>
+(* DO NOT EDIT (digest: fc0e0cc7a7cba53375984229609dcb05) *)
+
+Authors of Dom_type:
+
+* Marc Simon <marc.simon42@gmail.com>
+
 (* OASIS_STOP *)

@@ -10,13 +10,13 @@ Library "dom_type.client"
   Path:       client/src
   BuildTools: ocamlbuild
   Modules:    Dom_type
-  BuildDepends: eliom.client,eliom.syntax.client
+  BuildDepends: eliom.client,eliom.syntax.client,js_of_ocaml.syntax
 
 Library "dom_type.client.syntax"
   Path:       client/syntax
   BuildTools: ocamlbuild
   Modules:    Pa_dom
-  BuildDepends : camlp4.quotations.r,camlp4.metagenerator,camlp4.extend,deriving-ocsigen,js_of_ocaml.deriving.syntax
+  BuildDepends : camlp4.quotations.r,camlp4.metagenerator,camlp4.extend,deriving,js_of_ocaml-camlp4.deriving
   CompiledObject:     byte
   XMETAType:          syntax
   XMETARequires:      camlp4
@@ -27,10 +27,10 @@ Library "dom_type.server"
   Modules:    Dom_type_dummy
 
 Library "dom_type.server.syntax"
-  Path:       server/syntax
+  -Path:       server/syntax
   BuildTools: ocamlbuild
   Modules:    Pa_dom_dummy
-  BuildDepends : camlp4.quotations.r,camlp4.metagenerator,camlp4.extend,deriving-ocsigen,js_of_ocaml.deriving.syntax
+  BuildDepends : camlp4.quotations.r,camlp4.metagenerator,camlp4.extend,deriving,js_of_ocaml-camlp4.deriving
   CompiledObject:     byte
   XMETAType:          syntax
   XMETARequires:      camlp4
